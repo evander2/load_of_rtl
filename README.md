@@ -103,7 +103,10 @@ p.interactive()
 
 
 
-## orc
+## orc 
+
+You can use only read  
+read를 사용하여 "/bin/sh"를 bss 영역에 쓸 수 있지만, system함수가 주어지지 않았으므로 라이브러리에서 찾아야 한다.
 
 
 
