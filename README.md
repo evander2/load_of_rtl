@@ -34,7 +34,7 @@ p.interactive()
 
 
 You can use read and system  
-gdb를 통해 디버깅하여 read함수의 주소와 system함수의 주소를 알아낼 수 있다. "/bin/sh" 문자열이 필요하므로 
+gdb를 통해 디버깅하여 read함수의 주소와 system함수의 주소를 알아낼 수 있다. "/bin/sh" 문자열이 필요하므로 ASLR의 영향을 받지 않는 bss영역에 문자열을 작성해야 한다. read(0,bss,8) 함수를 이용하여 bss영역에 문자열을 작성할 수 있다. 이와 같은 방식으로 RTL을 반복할 수 있다. 이후 system함수의 주소와 "/bin/sh" 주소를 쓰면 함수를 실행할 수 있다.
 
 ```python
 from pwn import *
