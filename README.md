@@ -33,6 +33,8 @@ p.interactive()
 ## goblin
 
 
+You can use read and system  
+gdb를 통해 디버깅하여 read함수의 주소와 system함수의 주소를 알아낼 수 있다. "/bin/sh" 문자열이 필요하므로 
 
 ```python
 from pwn import *
@@ -74,6 +76,9 @@ p.interactive()
 
 ## gremlin
 
+
+You can use write, read, system and /bin/sh  
+system("/bin/sh")를 호출하기 위해 system함수의 주소와 "/bin/sh"의 주소를 구한다. ret를 system함수로 덮어주고 esp+0x4 자리에 "/bin/sh"의 주소를 쓰고 사이를 더미값으로 채워주면 system("/bin/sh")를 호출할 수 있다.
 
 ```python
 from pwn import *
